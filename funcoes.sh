@@ -1,7 +1,6 @@
 #!/bin/bash 
 cmd_sql="/usr/bin/sqlite3"
 bd="/home/cdsr/transferencia/database/db.sqlite3"
-#bd="/home/cdsr/bin/bkp_banco/db.sqlite3"
 data_atual=`date +%Y-%m-%d`
 
 function consultaPassagens(){
