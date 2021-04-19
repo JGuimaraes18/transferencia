@@ -6,40 +6,34 @@ data_atual=`date +%Y-%m-%d`
 function consultaPassagens(){
 
   consulta_array="SELECT id FROM core_passagem WHERE inicio LIKE '%$data_atual%';"
-
   pesquisa_array=`$cmd_sql $bd "$consulta_array" ""`
-
   array=($pesquisa_array)
 
   export array=$array
 }
 
 function consultaNulo(){
-
   id=$1
 
   consultaNulo="SELECT qt_passagem FROM core_passagem WHERE id LIKE '%$id%';"
-
   pesquisaNulo=`$cmd_sql $bd "$consultaNulo" ""`
-
+  
   export validaNulo=$pesquisaNulo
 }
 
 
 function consultaPassagem(){
-
   data_pesquisa=$1
 
   consulta="SELECT inicio, antena_id, sensor_id, servidor_id, fim, qt_passagem FROM core_passagem WHERE id LIKE '$id';"
-
   pesquisa=`$cmd_sql $bd "$consulta" ""`
 
   export pesquisa_passagem=$pesquisa
 }
 
 function manipulaDataHora(){
-
   passagem=$@
+  
   # Extrai as informacoes necessarias
   antena_pesquisa=`echo $passagem |cut -d '|' -f2`
   sensor_pesquisa=`echo $passagem |cut -d '|' -f3`
@@ -55,38 +49,26 @@ function manipulaDataHora(){
 }
 
 function consultaServidor(){
-
   data_pesquisa=$1
 
   consulta="select * from core_servidor where id = '$servidor_pesquisa';"
-
   pesquisa=`$cmd_sql $bd "$consulta" ""`
-
   servidor=`echo $pesquisa |cut -d '|' -f2`
-
   ponto_de_montagem=`echo $pesquisa |cut -d '|' -f3`
 }
 
 function consultaSensor(){
-
   data_pesquisa=$1
 
   consulta="select * from core_sensor where id = '$sensor_pesquisa';"
-
   pesquisa=`$cmd_sql $bd "$consulta" ""`
-
   sensor=`echo $pesquisa |cut -d '|' -f2`
-
   satelite_id=`echo $pesquisa |cut -d '|' -f3`
-
   consulta_sat="select satelite from core_satelite where id = '$satelite_id';"
-
   satelite=`$cmd_sql $bd "$consulta_sat" ""`
-
 }
 
 function formataDataPassagem(){
-
   data=$1
 
   ano_passagem=`echo $data |cut -d '-' -f2`
@@ -101,13 +83,10 @@ function formataDataPassagem(){
 }
 
 function comparaHorarioPassagem(){
-
   data_recebida=$@
  
   data_completa=`echo $data_recebida |cut -c -19`
-  
   data_compara_passagem=`echo $data_recebida |cut -c 21-`
-
   ts1=$(date -ud "$data_completa" +%s)
   ts2=$(date -ud "$data_compara_passagem" +%s)
 
