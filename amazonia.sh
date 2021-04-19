@@ -1,4 +1,4 @@
-#!/bin/bash -x 
+#!/bin/bash
 
 servidor=$1
 passagem=$2
