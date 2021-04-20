@@ -12,10 +12,16 @@ ano=`echo $passagem |cut -d '-' -f2`
 mes=`echo $passagem |cut -d '-' -f3`
 
 path_origem="/mnt/$servidor/$passagem"
-path_destino='/home/cdsr/TEMP-TESTE-PASSAGEM/CBERS4/'$ano'_'$mes/$sensor
+path_destino='/home/transfoper/TEMP-TESTE-PASSAGEM/CBERS4/'$ano'_'$mes/$sensor
 
 mkdir -p $path_destino
 
-cp $path_origem'/CBERS'* $path_destino
+cd $path_origem
+
+CB4_ORIG=`ls CBERS*`
+
+CB4=$CB4_ORIG'_CP5'
+
+cp $CB4_ORIG $path_destino/$CB4
 
 exit
