@@ -13,7 +13,7 @@ mes=`echo $passagem |cut -d '-' -f3`
 
 path_servidor='/home/cbers/bin'
 path_origem="/mnt/$servidor/$passagem"
-path_destino='/home/cdsr/TEMP-TESTE-PASSAGEM/AMAZONIA1/'$ano'_'$mes/$sensor
+path_destino='/home/transfoper/TEMP-TESTE-PASSAGEM/AMAZONIA1/'$ano'_'$mes/$sensor
 
 mkdir -p $path_destino
 
