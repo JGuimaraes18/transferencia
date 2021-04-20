@@ -1,5 +1,5 @@
 #!/bin/bash 
-path_exe='/home/cdsr/bin'
+path_exe='/home/transfoper/bin'
 source $path_exe/funcoes.sh
 contador=0
 hora_compara=`date +%H:%M:%S`
@@ -40,9 +40,9 @@ do
 			lista_passagens=`ls $ponto_de_montagem |grep $ingest_sensor-$data` 
 
 			for passagemIngestora in $lista_passagens
-                        do
-                                formataDataPassagem $passagemIngestora
-                                comparaHorarioPassagem $data_completa $data_compara_passagem
+            		do
+                		formataDataPassagem $passagemIngestora
+                		comparaHorarioPassagem $data_completa $data_compara_passagem
 
 				if [ $resultado -ge -5  ] && [ $resultado -le 10 ] 
 				then
@@ -56,14 +56,19 @@ do
 					rm $path_exe'/teste.txt'
 
 					if [ "$satelite" == 'CBERS4' ]
-                                        then
-                                               $path_exe/cbers4.sh $servidor $ingest_data $sensor
-                                        fi
+                    			then
+                        			$path_exe/cbers4.sh $servidor $ingest_data $sensor
+                    			fi
 
 					if [ "$satelite" == 'AMAZONIA 1' ] 
 					then
 						$path_exe/amazonia.sh $servidor $ingest_data $sensor
 					fi
+
+					if [ "$satelite" == 'AQUA' ] || [ "$satelite" == 'TERRA' ] || [ "$satelite" == 'NPP' ] || [ "$satelite" == 'NOAA20' ]
+                    			then
+                        			$path_exe/aqua_terra_npp_noaa20.sh $servidor $ingest_data $satelite $sensor
+                    			fi
 				fi
 			done
 		fi
