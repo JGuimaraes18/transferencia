@@ -1,10 +1,9 @@
 #!/bin/bash 
 cmd_sql="/usr/bin/sqlite3"
-bd="/home/cdsr/transferencia/database/db.sqlite3"
+bd="/home/transfoper/transferencia/database/db.sqlite3"
 data_atual=`date +%Y-%m-%d`
 
 function consultaPassagens(){
-
   consulta_array="SELECT id FROM core_passagem WHERE inicio LIKE '%$data_atual%';"
   pesquisa_array=`$cmd_sql $bd "$consulta_array" ""`
   array=($pesquisa_array)
@@ -14,17 +13,15 @@ function consultaPassagens(){
 
 function consultaNulo(){
   id=$1
-
   consultaNulo="SELECT qt_passagem FROM core_passagem WHERE id LIKE '%$id%';"
   pesquisaNulo=`$cmd_sql $bd "$consultaNulo" ""`
-  
+
   export validaNulo=$pesquisaNulo
 }
 
 
 function consultaPassagem(){
   data_pesquisa=$1
-
   consulta="SELECT inicio, antena_id, sensor_id, servidor_id, fim, qt_passagem FROM core_passagem WHERE id LIKE '$id';"
   pesquisa=`$cmd_sql $bd "$consulta" ""`
 
@@ -32,8 +29,8 @@ function consultaPassagem(){
 }
 
 function manipulaDataHora(){
+
   passagem=$@
-  
   # Extrai as informacoes necessarias
   antena_pesquisa=`echo $passagem |cut -d '|' -f2`
   sensor_pesquisa=`echo $passagem |cut -d '|' -f3`
@@ -45,12 +42,10 @@ function manipulaDataHora(){
   min_inicial=`echo $horario_inicial | cut -c 4-5`
   seg_inicial=`echo $horario_inicial | cut -c 7-8`
   horario_final=`echo $passagem |cut -d '|' -f5 |cut -c -19`
-
 }
 
 function consultaServidor(){
   data_pesquisa=$1
-
   consulta="select * from core_servidor where id = '$servidor_pesquisa';"
   pesquisa=`$cmd_sql $bd "$consulta" ""`
   servidor=`echo $pesquisa |cut -d '|' -f2`
@@ -59,7 +54,6 @@ function consultaServidor(){
 
 function consultaSensor(){
   data_pesquisa=$1
-
   consulta="select * from core_sensor where id = '$sensor_pesquisa';"
   pesquisa=`$cmd_sql $bd "$consulta" ""`
   sensor=`echo $pesquisa |cut -d '|' -f2`
@@ -84,14 +78,13 @@ function formataDataPassagem(){
 
 function comparaHorarioPassagem(){
   data_recebida=$@
- 
   data_completa=`echo $data_recebida |cut -c -19`
   data_compara_passagem=`echo $data_recebida |cut -c 21-`
+
   ts1=$(date -ud "$data_completa" +%s)
   ts2=$(date -ud "$data_compara_passagem" +%s)
 
   # Gera a diferenca do horario da ingestora para o horario do banco e converte para minutos
   dif=`expr $ts2 - $ts1`
   resultado=$(($dif / 60))
-  
 }
