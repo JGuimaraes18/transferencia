@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/bash -x 
 
 servidor=$1
 passagem=$2
 sensor=$3
 
-servidor=`echo $servidor | tr [A-Z] [a-z]` 
+servidor=`echo $servidor | tr [A-Z] [a-z]`
 ingest="$servidor.dgi.inpe.br"
 usuario='cbers'
 
@@ -13,7 +13,7 @@ mes=`echo $passagem |cut -d '-' -f3`
 
 path_servidor='/home/cbers/bin'
 path_origem="/mnt/$servidor/$passagem"
-path_destino='/home/transfoper/TEMP-TESTE-PASSAGEM/AMAZONIA1/'$ano'_'$mes/$sensor
+path_destino='/Level-0/AMAZONIA1/'$ano'_'$mes/$sensor
 
 mkdir -p $path_destino
 
@@ -28,6 +28,9 @@ ssh $usuario@$ingest << EOF
 $cmd_drd $passagem
 EOF
 
-cp $path_origem'/AMAZONIA'* $path_destino
+if [ $servidor == 'solaria' ]
+then
+        cp $path_origem'/AMAZONIA'* $path_destino
+fi
 
 exit
