@@ -18,7 +18,7 @@ cd $path_origem
 DRD=`ls CBERS*`
 ano_mes=`echo $DRD |cut -d '_' -f5-6`
 data_hora=`echo $DRD |cut -d '_' -f5-`
-path_destino='/home/transfoper/TEMP-TESTE-PASSAGEM/'$satelite/$ano_mes/$sensor
+path_destino='/Level-0/'$satelite/$ano_mes/$sensor
 mkdir -p $path_destino
 
 case $satelite in
