@@ -29,7 +29,6 @@ function consultaPassagem(){
 }
 
 function manipulaDataHora(){
-
   passagem=$@
   # Extrai as informacoes necessarias
   antena_pesquisa=`echo $passagem |cut -d '|' -f2`
@@ -65,15 +64,25 @@ function consultaSensor(){
 function formataDataPassagem(){
   data=$1
 
-  ano_passagem=`echo $data |cut -d '-' -f2`
-  mes_passagem=`echo $data |cut -d '-' -f3`
-  dia_passagem=`echo $data |cut -d '-' -f4`
+  if [ "$satelite" == "CBERS 4A" ]
+  then
+	ano_passagem=`echo $data |cut -d '-' -f1`
+        mes_passagem=`echo $data |cut -d '-' -f2`
+        dia_passagem=`echo $data |cut -d '-' -f3 |cut -c -2`
 
-  hora_passagem=`echo $data |cut -d '-' -f5`
-  min_passagem=`echo $data |cut -d '-' -f6`
-  seg_passagem=`echo $data |cut -d '-' -f7`
+	      hora_passagem=`echo $data |cut -d 'T' -f2 |cut -c -2`
+        min_passagem=`echo $data |cut -d ':' -f2`
+        seg_passagem=`echo $data |cut -d ':' -f3 |cut -c -2`	
+  else
+  	ano_passagem=`echo $data |cut -d '-' -f2`
+  	mes_passagem=`echo $data |cut -d '-' -f3`
+  	dia_passagem=`echo $data |cut -d '-' -f4`
 
-  data_compara_passagem=$ano_passagem-$mes_passagem-$dia_passagem' '$hora_passagem:$min_passagem:$seg_passagem
+  	hora_passagem=`echo $data |cut -d '-' -f5`
+  	min_passagem=`echo $data |cut -d '-' -f6`
+  	seg_passagem=`echo $data |cut -d '-' -f7`
+  fi
+ 	data_compara_passagem=$ano_passagem-$mes_passagem-$dia_passagem' '$hora_passagem:$min_passagem:$seg_passagem
 }
 
 function comparaHorarioPassagem(){
@@ -87,4 +96,34 @@ function comparaHorarioPassagem(){
   # Gera a diferenca do horario da ingestora para o horario do banco e converte para minutos
   dif=`expr $ts2 - $ts1`
   resultado=$(($dif / 60))
+}
+
+function defineMascara(){
+  case $servidor in
+  SOLARIA)
+          ingest_sensor="MUX"
+          ;;
+  COROT)
+          ingest_sensor="AWFI"
+          ;;
+  esac
+
+  # Monta a mascara padrao da ingestao
+  if [ "$satelite" == 'CBERS 4A' ] 
+  then
+      ingest_data=$data'T'$hora_inicial':'$min_inicial':'$seg_inicial'.000Z'
+  else
+      ingest_data=$ingest_sensor'-'$data'-'$hora_inicial'-'$min_inicial'-'$seg_inicial
+  fi
+}
+
+function defineQuantidadePassagens(){
+  quant_passagem=$((contador+1))
+
+  if [ "$satelite" == 'CBERS 4A' ]
+  then
+       quant_arquivos=`ls *.raw |wc -l`
+  else
+       quant_arquivos=`ls |grep $ingest_sensor |grep $dia_passagem |wc -l`
+  fi
 }
