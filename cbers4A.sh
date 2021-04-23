@@ -23,7 +23,7 @@ then
 		sufixo='DTS2'
 	fi
 
-    DADO='CBERS_4A_'$sufixo'_RAW_'$ano'_'$mes'_'$dia'.'$hora'_'$min'_'$seg'_CP5'
+        DADO='CBERS_4A_'$sufixo'_RAW_'$ano'_'$mes'_'$dia'.'$hora'_'$min'_'$seg'_CP5'
 	path_destino='/Level-0/CBERS4A/'$ano'_'$mes/$sensor
 	mkdir -p $path_destino
 	cp $montagem/$passagem/$RAW $path_destino/$DADO
