@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 
 servidor=$1
 passagem=$2
@@ -14,7 +14,6 @@ path_origem="/mnt/$servidor/$passagem"
 cmd_raw="$path_servidor/converte_CB4_to_AQUA_RAW.sh"
 
 cd $path_origem
-
 DRD=`ls CBERS*`
 ano_mes=`echo $DRD |cut -d '_' -f5-6`
 data_hora=`echo $DRD |cut -d '_' -f5-`
@@ -43,5 +42,4 @@ $cmd_raw $passagem $RAW $DRD
 EOF
 
 cp $path_origem/$RAW $path_destino
-
 exit
