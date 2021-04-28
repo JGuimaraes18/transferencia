@@ -165,6 +165,9 @@ then
 		METOPB)
 			sat='AHRPT/Archive'
 			;;
+                METOPC)
+                        sat='AHRPT/Archive'
+                        ;;			
 	esac
 	lista_passagens=`ls $ponto_de_montagem/$sat/$data/ |grep $hora_inicial |grep $min_inicial`
 	data_lista_passagem=`echo $lista_passagens |cut -d ' ' -f1`
