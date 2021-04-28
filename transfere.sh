@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 path_convert='/home/transfoper/bin/'
 path_exe='/home/transfoper/bin'
 source $path_exe/funcoes.sh
