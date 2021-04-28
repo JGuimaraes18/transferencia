@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 dir_proc='/home/transfoper/bin'
 
