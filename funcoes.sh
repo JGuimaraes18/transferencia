@@ -169,7 +169,7 @@ then
 			sat='AHRPT/Archive'
 			;;
 	esac
-	lista_passagens=`ls $ponto_de_montagem/$sat/$data/ |grep $hora_inicial`
+	lista_passagens=`ls $ponto_de_montagem/$sat/$data/ |grep $hora_inicial-$min_inicial`
 	data_lista_passagem=`echo $lista_passagens |cut -d ' ' -f1`
 	hora_lista_passagem=`echo $lista_passagens |cut -d ' ' -f2`
 	lista_passagens=$data_lista_passagem'_'$hora_lista_passagem
