@@ -8,7 +8,7 @@ formato='CADU'
 
 path_exe='/home/transfoper/bin'
 path_origem="/mnt/$servidor/$passagem"
-path_convert='/TEMP'
+path_convert='/TEMP/solaria'
 cmd_raw="$path_exe/converte_CB4_to_AQUA_TERRA_NPP_NOAA20_RAW.sh"
 
 cd $path_origem
