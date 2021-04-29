@@ -16,6 +16,7 @@ DRD=`ls CBERS*`
 ano_mes=`echo $DRD |cut -d '_' -f5-6`
 data_hora=`echo $DRD |cut -d '_' -f5-`
 path_destino='/Level-0/'$satelite/$ano_mes/$sensor
+mkdir -p $path_convert
 mkdir -p $path_destino
 
 RAW=$satelite'_'$formato'_'$data_hora'_CP5'
