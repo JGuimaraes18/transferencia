@@ -165,16 +165,17 @@ then
 		METOPB)
 			sat='AHRPT/Archive'
 			;;
-                METOPC)
-                        sat='AHRPT/Archive'
-                        ;;			
+		METOPC)
+			sat='AHRPT/Archive'
+			;;
 	esac
-	lista_passagens=`ls $ponto_de_montagem/$sat/$data/ |grep $hora_inicial |grep $min_inicial`
+	lista_passagens=`ls $ponto_de_montagem/$sat/$data/ |grep $hora_inicial`
 	data_lista_passagem=`echo $lista_passagens |cut -d ' ' -f1`
 	hora_lista_passagem=`echo $lista_passagens |cut -d ' ' -f2`
 	lista_passagens=$data_lista_passagem'_'$hora_lista_passagem
 else
 	lista_passagens=`ls $ponto_de_montagem |grep $data`	
+	hora_lista_passagem=`ls $ponto_de_montagem |grep $hora_inicial`
 fi
 }
 
