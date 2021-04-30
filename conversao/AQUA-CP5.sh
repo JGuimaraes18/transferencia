@@ -25,5 +25,6 @@ $cmd_raw $passagem $RAW $DRD
 cp $path_convert/$RAW $path_destino
 
 echo "Dado $RAW disponível no Level-0 para processamento" | mail -s "Dado $RAW Disponível" $contatos
+rm $path_convert/$RAW
 
 exit
