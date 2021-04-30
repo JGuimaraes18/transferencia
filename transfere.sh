@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 path_convert='/home/transfoper/bin/'
 path_exe='/home/transfoper/bin'
 source $path_exe/funcoes.sh
@@ -33,13 +33,15 @@ do
 
 			if [ -z $hora_lista_passagem ]
 			then
-				continue
+				quant_passagem='0'
+				quant_arquivos='0'
+				atualizaBD
 			else
 				for passagemIngestora in $lista_passagens
 	                        do
 					if [ "$sistemaIngestao" == 'DARTCOM' ]
 	                        	then
-									acertaPadraoIngestoraDartcom	
+						acertaPadraoIngestoraDartcom	
 	                        	fi	
 
 	                              	formataDataPassagem "$passagemIngestora"
