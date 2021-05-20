@@ -6,6 +6,8 @@ sensor=$3
 sufixo=$3
 montagem=$4
 
+contatos='joao.guimaraes@inpe.br'
+
 cd $montagem/$passagem
 RAW=`ls *raw`
 
