@@ -1,0 +1,19 @@
+#!/bin/bash
+
+TEMP=$1
+DRD_ING=$2
+SENSOR=$3
+ANO_MES=$4
+ANTENA=$5
+DRD=$DRD_ING'_'$ANTENA
+
+cd $TEMP
+
+mv $DRD_ING $DRD
+
+STORAGE="/TEMP/Level-0/CBERS4/$ANO_MES/$SENSOR"
+
+mkdir -p $STORAGE
+
+cp $DRD $STORAGE/$NOME_DADO
+exit
