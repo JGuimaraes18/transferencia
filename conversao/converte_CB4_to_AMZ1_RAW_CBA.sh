@@ -1,4 +1,5 @@
-#!/bin/bash 
+#!/bin/bash
+
 # Define variaveis locais #
 CB4_DRD=$1
 ingestora=$2

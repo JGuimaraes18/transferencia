@@ -1,13 +1,16 @@
-#!/bin/bash 
+#!/bin/bash
 path_exe='/home/transfoper/bin'
 
 servidor=$1
 montagem="/mnt/$servidor"
 ingest_data=$montagem'/'$2
+passagem=$2
 satelite=$3
 sensor=$4
 antena=$5
 TEMP="/home/transfoper/TEMP-PASSAGEM/$servidor"
+user=transfoper
+pass=#(ADICIONAR A SENHA DO USUARIO)
 
 ano=`echo $ingest_data |cut -d '-' -f2`
 mes=`echo $ingest_data |cut -d '-' -f3`
@@ -45,10 +48,64 @@ esac
 DRD=$format_ingest'_'$ano'_'$mes'_'$dia'.'$hora'_'$min'_'$seg
 NEW_DRD=$DRD'_'$antena
 
+if [ "$servidor" == 'DARTCOM-L-CB1' ] || [ "$servidor" == 'DARTCOM-L-CB2' ] || [ "$servidor" == 'DARTCOM-X-CB3' ]
+then
+
+	data=`echo $passagem |cut -c 1-10`
+	horario=`echo $passagem |cut -c 12-21`
+	hora=`echo $horario |cut -c 1-2`
+
+	sat=$sensor'/Archive'
+	case $satelite in
+		AQUA) 
+			sat='Aqua'
+			;;
+                TERRA)
+                        sat='Terra'
+                        ;;
+                NPP)
+                        sat=$satelite
+                        ;;
+                NOAA20)
+                        sat='JPSS-1'
+                        ;;
+	esac
+	ingest_data="/mnt/$antena/Dartcom/Data/$sat/$data/"
+	ingest_dartcom="/$antena/Dartcom/Data/$sat/$data"
+
+	TEMP=$TEMP/$satelite/$data'_'$horario
+	mkdir -p $TEMP
+
+	/usr/bin/ncftpget -R -E -u $user -p $pass 10.163.155.190 $TEMP $ingest_dartcom/*$hora*/*
+
+	if [ $satelite == 'METOPB' ] || [ $satelite == 'METOPC' ]
+	then 
+		TEMP_EPS=$TEMP/EPSL0
+	        mkdir -p $TEMP_EPS
+
+		/usr/bin/ncftpget -R -E -u $user -p $pass 10.163.155.190 $TEMP_EPS /$antena/Dartcom/Data/EPSL0/Archive/$data/$hora-$min/*
+		
+	fi
+
+	if [ $satelite == 'NOAA18' ] || [ $satelite == 'NOAA19' ]
+        then
+		if [ $antena == 'CB1' ]
+		then
+			/usr/bin/ncftpget -R -E -u $user -p $pass 10.163.155.190 $TEMP_EPS /$antena/Dartcom/Data/NOAA_Ancillary_Data/Archive/$data/$hora-$min/*
+		else
+			/usr/bin/ncftpget -R -E -u $user -p $pass 10.163.155.190 $TEMP_EPS /$antena/Dartcom/Data/Ancillary_Data/Archive/$data/$hora-$min/*
+		fi
+	fi
+
+	$path_exe/$satelite'-CBA.sh' $TEMP $data $horario $antena
+	
+	exit
+fi
+
 if [ "$satelite" == 'CBERS 4A' ]
 then
 	java -jar /home/transfoper/reuel/fdt.jar -pull -md5 -ss 124928 -P 50 -N -nolock -c 10.163.155.190 -d $TEMP $ingest_data/999_999_999_00000.raw	
-	satelite='CBERS4A'
+        satelite='CBERS4A'
 	$path_exe/$satelite'-CBA.sh' $TEMP $ingest_data $sensor $antena
 	
 else

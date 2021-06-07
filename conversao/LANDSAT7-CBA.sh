@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 
 TEMP=$1
 DRD=$2
@@ -19,7 +19,7 @@ esac
 DATA=`echo $DRD |cut -d '_' -f5-`
 NOME_DADO='LANDSAT_7_'$sir'_RAW_'$SENSOR'_'$DATA
 
-STORAGE="/TEMP/Level-0/LANDSAT7/$ANO_MES/ETM"
+STORAGE="/Level-0/LANDSAT7/$ANO_MES/ETM"
 
 mkdir -p $STORAGE
 

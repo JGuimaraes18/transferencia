@@ -10,7 +10,7 @@ servidor=$6
 
 path_exe='/home/transfoper/bin'
 path_convert='/TEMP/'$servidor
-path_destino='/TEMP/Level-0/AMAZONIA1/'$ano_mes/$sensor
+path_destino='/Level-0/AMAZONIA1/'$ano_mes/$sensor
 mkdir -p $path_destino
 
 cmd_raw="$path_exe/converte_CB4_to_AMZ1_RAW_CBA.sh"
