@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-contatos='joao.guimaraes@inpe.br, cdsr@inpe.br, marilia.moura@inpe.br'
+contatos='contatos'
 
 function enviaEmail(){
 DADO=$1
