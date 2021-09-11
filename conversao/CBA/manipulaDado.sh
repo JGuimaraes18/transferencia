@@ -1,4 +1,4 @@
-#!/bin/bash -x 
+#!/bin/bash 
 source email.sh
 
 path_exe='/home/transfoper/bin/CBA'
@@ -15,7 +15,6 @@ if [ $md51 == $md52 ]
 then
 	$path_exe/$satelite.sh $dado
 	verificaEmailIgual $dado	
-
 else
 	verificaEmailDiferente $dado
 fi
