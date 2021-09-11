@@ -1,4 +1,5 @@
 #!/bin/bash 
+source email.sh
 
 data=$1
 horario=$2
@@ -8,7 +9,7 @@ antena='CP6'
 sensor='MODIS'
 sat='Aqua'
 sufixo='CADU'
-contatos='joao.guimaraes@inpe.br'
+
 
 ano=`echo $data |cut -d '-' -f1`
 mes=`echo $data |cut -d '-' -f2`
@@ -27,5 +28,5 @@ DADO_INGEST=`ls *.vcdu`
 
 cp $DADO_INGEST $path_destino/$DADO
 
-echo "Dado $DADO disponível no Level-0 para processamento" | mail -s "Dado $DADO Disponível" $contatos
+enviaEmail $DADO
 exit
