@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash 
 
 dado=$1
 path_dado='/home/transfoper/TEMP-PASSAGEM/LANDSAT'
