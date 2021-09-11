@@ -1,4 +1,5 @@
 #!/bin/bash 
+source email.sh
 
 passagem=$1
 sensor='MODIS'
@@ -24,7 +25,7 @@ $cmd_raw $passagem $RAW $DRD
 
 cp $path_convert/$RAW $path_destino
 
-echo "Dado $RAW disponível no Level-0 para processamento" | mail -s "Dado $RAW Disponível" $contatos
+enviaEmail $RAW
 rm $path_convert/$RAW
 
 exit
