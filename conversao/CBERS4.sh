@@ -1,9 +1,8 @@
 #!/bin/bash 
-
+source email.sh
 servidor=$1
 passagem=$2
 sensor=$3
-contatos='joao.guimaraes@inpe.br'
 
 servidor=`echo $servidor | tr [A-Z] [a-z]` 
 
@@ -19,5 +18,5 @@ CB4_ORIG=`ls CBERS*`
 CB4=$CB4_ORIG'_CP5'
 cp $CB4_ORIG $path_destino/$CB4
 
-echo "Dado $CB4 disponível no Level-0 para processamento" | mail -s "Dado $CB4 Disponível" $contatos
+enviaEmail $DADO
 exit
