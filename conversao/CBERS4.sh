@@ -4,6 +4,10 @@ servidor=$1
 passagem=$2
 sensor=$3
 
+ftp='HOST'
+user='USER'
+dirDPI='/cdsr/VPN/CBERS4'
+
 servidor=`echo $servidor | tr [A-Z] [a-z]` 
 
 ano=`echo $passagem |cut -d '-' -f2`
@@ -19,4 +23,6 @@ CB4=$CB4_ORIG'_CP5'
 cp $CB4_ORIG $path_destino/$CB4
 
 enviaEmail $DADO
+
+scp $DADO $user@$ftp:@$dirDPI
 exit
